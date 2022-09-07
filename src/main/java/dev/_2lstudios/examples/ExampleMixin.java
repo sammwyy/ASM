@@ -1,4 +1,4 @@
-package dev._2lstudios.example;
+package dev._2lstudios.examples;
 
 import dev._2lstudios.asm.mixins.Mixin;
 import dev._2lstudios.asm.mixins.injections.At;
