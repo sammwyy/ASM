@@ -1,0 +1,8 @@
+{
+    "bukkit": {
+        "package": "dev._2lstudios.example_mixins",
+        "classes": [
+            "ExampleMixin"
+        ]
+    }
+}
