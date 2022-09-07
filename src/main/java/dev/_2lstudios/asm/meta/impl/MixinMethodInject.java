@@ -53,6 +53,6 @@ public class MixinMethodInject implements MixinMethod {
     @Override
     public void patch() throws Exception {
         String auxID = this.injectMetaAux();
-        this.getTargetMethod().insertBefore(auxID + "(new dev._2lstudios.asm.mixins.injections.callback.Callback());");
+        this.getTargetMethod().insertBefore(auxID + "();");
     }
 }

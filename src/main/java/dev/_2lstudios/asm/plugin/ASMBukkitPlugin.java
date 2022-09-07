@@ -38,13 +38,11 @@ public class ASMBukkitPlugin extends JavaPlugin {
             long endTime = System.currentTimeMillis();
             long took = endTime - startTime;
             this.getLogger().info("    Patch success! (took " + took + "ms)");
-            this.getLogger().info(""); 
         } catch (Exception e) {
             long endTime = System.currentTimeMillis();
             long took = endTime - startTime;
             this.getLogger().info("    Failed to apply all patched (took " + took + "ms)");
             e.printStackTrace();
-            this.getLogger().info(""); 
         }
     }
 }
