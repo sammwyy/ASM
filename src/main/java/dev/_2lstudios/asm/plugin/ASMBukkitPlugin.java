@@ -25,7 +25,7 @@ public class ASMBukkitPlugin extends JavaPlugin {
         this.getLogger().info("    Lookup result: " + mixins + " mixins ready to discover.");
 
         // STEP 2/3
-        this.getLogger().info("[2/3] Discovering patches in founded mixins...");
+        this.getLogger().info("[2/3] Discovering patches in found mixins...");
         int discover = loader.discover();
         this.getLogger().info("    Discover result: " + discover + " patches ready to be injected.");
         
