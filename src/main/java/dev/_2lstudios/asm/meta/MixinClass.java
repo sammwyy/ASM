@@ -69,7 +69,7 @@ public class MixinClass {
                     return method;
                 }
             }
-            
+
             return null;
         }
     }
