@@ -9,7 +9,7 @@ import dev._2lstudios.asm.meta.MixinClass;
 import dev._2lstudios.asm.utils.ClassPoolUtils;
 
 public class ASMMixinsLookupResult {
-    private List<MixinClass> mixinsClasses;
+    private final List<MixinClass> mixinsClasses;
 
     public ASMMixinsLookupResult() {
         this.mixinsClasses = new ArrayList<>();

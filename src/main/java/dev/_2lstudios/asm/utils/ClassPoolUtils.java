@@ -7,15 +7,15 @@ import javassist.CtClass;
 import javassist.NotFoundException;
 
 public class ClassPoolUtils {
-    private static ClassPool pool = ClassPool.getDefault();
+    private static final ClassPool POOL = ClassPool.getDefault();
 
     public static ClassPool getPool() {
-        return pool;
+        return POOL;
     }
 
     public static boolean addJarToPoolClasspath(File jar) {
         try {
-            pool.appendClassPath(jar.getAbsolutePath());
+            POOL.appendClassPath(jar.getAbsolutePath());
             return true;
         } catch (NotFoundException e) {
             e.printStackTrace();
@@ -25,7 +25,7 @@ public class ClassPoolUtils {
 
     public static CtClass getClass(String className, boolean createDummyIfNotExist) {
         String fixedName = ClassNameUtils.fixClassName(className);
-        CtClass findClass = pool.getOrNull(fixedName);
+        CtClass findClass = POOL.getOrNull(fixedName);
 
         if (findClass != null) {
             return findClass;

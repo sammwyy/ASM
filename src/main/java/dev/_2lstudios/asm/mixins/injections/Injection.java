@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Injection {
-    public String method();
-    public At at();
-    public boolean returnable() default false;
+    String method();
+    At at();
+    boolean returnable() default false;
 }

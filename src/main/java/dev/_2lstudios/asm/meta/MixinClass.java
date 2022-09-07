@@ -14,11 +14,11 @@ import javassist.CtMethod;
 import javassist.NotFoundException;
 
 public class MixinClass {
-    private Class<?> javaClass;
+    private final Class<?> javaClass;
 
-    private List<MixinMethod> methods;
-    private CtClass sourceClass;
-    private CtClass targetClass;
+    private final List<MixinMethod> methods;
+    private final CtClass sourceClass;
+    private final CtClass targetClass;
 
     public MixinClass (String javaClassName) throws ClassNotFoundException {
         this.methods = new ArrayList<>();

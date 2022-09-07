@@ -16,10 +16,10 @@ import dev._2lstudios.asm.utils.ClassPoolUtils;
 import dev._2lstudios.asm.utils.JarUtils;
 
 public class ASMLoader {
-    private ASMPlatform platform;
-    private File[] jars;
+    private final ASMPlatform platform;
+    private final File[] jars;
 
-    private ASMMixinsLookupResult lookupResult;
+    private final ASMMixinsLookupResult lookupResult;
 
     public ASMLoader(ASMPlatform platform, File[] jars) {
         this.platform = platform;
