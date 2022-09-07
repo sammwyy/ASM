@@ -1,41 +1,47 @@
 package dev._2lstudios.asm;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
 import com.google.gson.Gson;
-
 import dev._2lstudios.asm.meta.MixinClass;
 import dev._2lstudios.asm.utils.ClassPoolUtils;
 import dev._2lstudios.asm.utils.JarUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
 public class ASMLoader {
+    private static final Gson DEFAULT_GSON = new Gson();
+
+    private final Gson gson;
     private final ASMPlatform platform;
     private final File[] jars;
 
     private final ASMMixinsLookupResult lookupResult;
 
-    public ASMLoader(ASMPlatform platform, File[] jars) {
+    public ASMLoader(ASMPlatform platform, File[] jars, Gson gson) {
+        this.gson = gson;
         this.platform = platform;
         this.jars = jars;
 
         this.lookupResult = new ASMMixinsLookupResult();
     }
 
-    public ASMLoader(ASMPlatform platform, File jarsDirectory) {
-        this(platform, jarsDirectory.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".jar");
-            }
-        }));
+    public ASMLoader(ASMPlatform platform, File[] jars) {
+        this(platform, jars, DEFAULT_GSON);
+    }
+
+    public ASMLoader(ASMPlatform platform, File jarsDirectory, Gson gson) {
+        this(platform, jarsDirectory.listFiles((dir, name) -> name.endsWith(".jar")), gson);
     };
+
+    public ASMLoader(ASMPlatform platform, File jarsDirectory) {
+        this(platform, jarsDirectory, DEFAULT_GSON);
+    }
 
     public ASMMixinsLookupResult lookupForMixins(ASMMixinsLookupResult result, File jar) throws IOException {
         ZipFile zip = new ZipFile(jar);
@@ -43,9 +49,9 @@ public class ASMLoader {
 
         if (mixinsFileEntry != null && !mixinsFileEntry.isDirectory()) {
             InputStream in = zip.getInputStream(mixinsFileEntry);        
-            Reader reader = new InputStreamReader(in, "UTF-8");
+            Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
             
-            ASMMixinsFile mixinsFile = new Gson().fromJson(reader, ASMMixinsFile.class);
+            ASMMixinsFile mixinsFile = gson.fromJson(reader, ASMMixinsFile.class);
             MixinsFileEntry mixins = mixinsFile.getForPlatform(this.platform);
 
             for (String mixinClassName : mixins.getClasses()) {
