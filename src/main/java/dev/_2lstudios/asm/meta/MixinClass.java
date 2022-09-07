@@ -63,11 +63,14 @@ public class MixinClass {
             String methodName = methodDescription.split("(")[0];
             CtClass[] params = ClassPoolUtils.parseParams(rawParams);
             return this.getMethod(clazz, methodName, params);
-        } else { 
-            return Arrays.stream(clazz.getMethods())
-                .filter(method -> method.getName().equals(methodDescription))
-                .findAny()
-                .orElse(null);
+        } else {
+            for (CtMethod method : clazz.getMethods()) {
+                if (method.getName().equals(methodDescription)) {
+                    return method;
+                }
+            }
+            
+            return null;
         }
     }
 
