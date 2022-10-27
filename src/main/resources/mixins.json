@@ -1,6 +1,6 @@
 {
     "bukkit": {
-        "package": "dev._2lstudios.example_mixins",
+        "package": "dev._2lstudios.examples",
         "classes": [
             "ExampleMixin"
         ]

@@ -13,9 +13,9 @@ import javassist.CtMethod;
 import javassist.CtNewMethod;
 
 public class MixinMethodInject implements MixinMethod {
-    private MixinClass mixinClass;
-    private Method javaMethod;
-    private Injection meta;
+    private final MixinClass mixinClass;
+    private final Method javaMethod;
+    private final Injection meta;
 
     public MixinMethodInject(MixinClass mixinClass, Method javaMethod) {
         this.mixinClass = mixinClass;

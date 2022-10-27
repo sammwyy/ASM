@@ -14,11 +14,11 @@ import javassist.CtMethod;
 import javassist.NotFoundException;
 
 public class MixinClass {
-    private Class<?> javaClass;
+    private final Class<?> javaClass;
 
-    private List<MixinMethod> methods;
-    private CtClass sourceClass;
-    private CtClass targetClass;
+    private final List<MixinMethod> methods;
+    private final CtClass sourceClass;
+    private final CtClass targetClass;
 
     public MixinClass (String javaClassName) throws ClassNotFoundException {
         this.methods = new ArrayList<>();
@@ -63,11 +63,14 @@ public class MixinClass {
             String methodName = methodDescription.split("(")[0];
             CtClass[] params = ClassPoolUtils.parseParams(rawParams);
             return this.getMethod(clazz, methodName, params);
-        } else { 
-            return Arrays.stream(clazz.getMethods())
-                .filter(method -> method.getName().equals(methodDescription))
-                .findAny()
-                .orElse(null);
+        } else {
+            for (CtMethod method : clazz.getMethods()) {
+                if (method.getName().equals(methodDescription)) {
+                    return method;
+                }
+            }
+
+            return null;
         }
     }
 
